@@ -3,7 +3,8 @@ import './App.scss';
 
 const initialState = {
     number: 0,
-    lastAction: ''
+	lastAction: '',
+	whenLastClicked: ''
 };
 
 const reducer = (state, action) => {
@@ -11,12 +12,14 @@ const reducer = (state, action) => {
 		case 'down':
 			return {
 				number: state.number - 1,
-				lastAction: 'decrement'
+				lastAction: 'decrement',
+				whenLastClicked: String(new Date())
 			};
 		case 'up':
 			return {
 				number: state.number + 1,
-				lastAction: 'increment'
+				lastAction: 'increment',
+				whenLastClicked: String(new Date())
 			};
 	}
 };
@@ -29,6 +32,7 @@ function App() {
             <h1>useReducer</h1>
             <div>Number: {state.number}</div>
 			<div>Last action: {state.lastAction}</div>
+			<div className="when">When last clicked: {state.whenLastClicked}</div>
             <div className="buttonArea">
                 <button onClick={() => dispatch({type: 'down'})}>-</button>
                 <button onClick={() => dispatch({type: 'up'})}>+</button>
