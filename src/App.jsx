@@ -8,17 +8,17 @@ const initialState = {
 	timesClicked: 0
 };
 
-const reducer = (state, action) => {
+const reducer = (theState, action) => {
 	const obj = {};
 	obj.whenLastClicked = String(new Date());
-	obj.timesClicked = state.timesClicked + 1;
+	obj.timesClicked = theState.timesClicked + 1;
 	switch (action.type) {
 		case 'down':
-			obj.number = state.number - 1;
+			obj.number = theState.number - 1;
 			obj.lastAction = 'decrement';
 			break;
 		case 'up':
-			obj.number = state.number + 1;
+			obj.number = theState.number + 1;
 			obj.lastAction = 'increment';
 			break;
 	}
