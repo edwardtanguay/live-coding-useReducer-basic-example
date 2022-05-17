@@ -2,43 +2,47 @@ import { useReducer } from 'react';
 import './App.scss';
 
 const initialState = {
-    number: 0,
+	number: 0,
 	lastAction: '',
-	whenLastClicked: ''
+	whenLastClicked: '',
+	timesClicked: 0
 };
 
 const reducer = (state, action) => {
+	const obj = {};
+	obj.whenLastClicked = String(new Date());
+	obj.timesClicked = state.timesClicked + 1;
 	switch (action.type) {
 		case 'down':
-			return {
-				number: state.number - 1,
-				lastAction: 'decrement',
-				whenLastClicked: String(new Date())
-			};
+			obj.number = state.number - 1;
+			obj.lastAction = 'decrement';
+			break;
 		case 'up':
-			return {
-				number: state.number + 1,
-				lastAction: 'increment',
-				whenLastClicked: String(new Date())
-			};
+			obj.number = state.number + 1;
+			obj.lastAction = 'increment';
+			break;
 	}
+	return obj;
 };
 
 function App() {
-    const [state, dispatch] = useReducer(reducer, initialState);
+	const [state, dispatch] = useReducer(reducer, initialState);
 
-    return (
-        <div className="App">
-            <h1>useReducer</h1>
-            <div>Number: {state.number}</div>
+	return (
+		<div className="App">
+			<h1>useReducer</h1>
+			<div>Number: {state.number}</div>
 			<div>Last action: {state.lastAction}</div>
-			<div className="when">When last clicked: {state.whenLastClicked}</div>
-            <div className="buttonArea">
-                <button onClick={() => dispatch({type: 'down'})}>-</button>
-                <button onClick={() => dispatch({type: 'up'})}>+</button>
-            </div>
-        </div>
-    );
+			<div className="when">
+				When last clicked: {state.whenLastClicked}
+			</div>
+			<div className="timesClicked">Times clicked: {state.timesClicked}</div>
+			<div className="buttonArea">
+				<button onClick={() => dispatch({ type: 'down' })}>-</button>
+				<button onClick={() => dispatch({ type: 'up' })}>+</button>
+			</div>
+		</div>
+	);
 }
 
 export default App;
